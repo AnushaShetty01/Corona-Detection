@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        body {
+            background-image: url('static/background_upload.jpg');
+            background-size: cover;
+            color: rgb(17, 1, 1);
+            text-align: center;
+        }
+        .navbar {
+            background-color:transparent;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: right;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .upload h1{
+            color:black ;
+        }
+        #imagePreview img {
+            max-width: 300px; /* Maximum width of the image */
+            max-height: 300px; /* Maximum height of the image */
+        }
+             /* Adjust the size and position of the file input and upload button */
+             input[type="file"] {
+            display: block;
+            margin: 50px auto; /* Center the file input horizontally and add spacing */
+            width: 200px; /* Set the width of the file input */
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 30px auto; /* Center the upload button horizontally and add spacing */
+            padding: 10px 20px; /* Add padding to the upload button */
+            background-color: #16a220; /* Button color */
+            color: #fff; /* Button text color */
+            border: none; /* Remove border */
+            border-radius: 10px; /* Add border radius */
+            cursor: pointer; /* Add cursor pointer on hover */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #14751f; /* Darkened button color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/about">About Us</a>
+        <a href="/login">Login</a>
+        <a href="/">Home</a>
+    </div>
+    <div class="upload">
+    <h1>Upload Image</h1>
+    </div>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" onchange="previewImage(event)">
+      
+        <input type="submit" value="Upload">
+    </form>
+
+    <img src="{{ image_path }}" alt="Uploaded Image" width="300">
+
+
+    <div id="imagePreview"></div>
+
+    <script>
+        function previewImage(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            
+            reader.onload = function(event) {
+                var imgPreview = document.getElementById('imagePreview');
+                imgPreview.innerHTML = '<img src="' + event.target.result + '" alt="Uploaded Image">';
+            }
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+
+</body>
+</html>
